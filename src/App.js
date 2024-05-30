@@ -1,17 +1,30 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import './index.css'; 
 
 function App() {
   const [data, setData] = useState({});
   const [location, setLocation] = useState('');
   const [background, setBackground] = useState('');
   const [weatherIcon, setWeatherIcon] = useState('');
+  const [currentLocation, setCurrentLocation] = useState('');
 
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=bdc1146c700b7ab3cbbd22c72a75063f`;
+  const getWeatherData = (lat, lon) => {
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=bdc1146c700b7ab3cbbd22c72a75063f`;
+
+    axios.get(url)
+      .then((response) => {
+        setData(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error("There was an error making the request", error);
+      });
+  };
 
   const searchLocation = (event) => {
     if (event.key === "Enter" && location) {
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=bdc1146c700b7ab3cbbd22c72a75063f`;
+
       axios.get(url)
         .then((response) => {
           setData(response.data);
@@ -69,6 +82,28 @@ function App() {
   };
 
   useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+        getWeatherData(lat, lon);
+        setCurrentLocation('Your Location');
+      }, (error) => {
+        console.error("Error getting the location", error);
+        const defaultLat = 51.5074; 
+        const defaultLon = -0.1278; 
+        getWeatherData(defaultLat, defaultLon);
+        setCurrentLocation('London');
+      });
+    } else {
+        const defaultLat = 51.5074; 
+        const defaultLon = -0.1278; 
+        getWeatherData(defaultLat, defaultLon);
+        setCurrentLocation('London');
+    }
+  }, []);
+
+  useEffect(() => {
     if (data.weather) {
       setWeatherBackgroundAndIcon(data);
     }
@@ -89,7 +124,7 @@ function App() {
       <div className="container">
         <div className="top">
           <div className="location">
-            <p>{data.name}, {currentDate}</p>
+            <p>{data.name || currentLocation}{data.name && ', '}{currentDate}</p>
           </div>
           <div className="temp">
             {data.main && <h1>{data.main.temp.toFixed()}°C</h1>}
@@ -133,6 +168,3 @@ function App() {
 }
 
 export default App;
-
-
-
