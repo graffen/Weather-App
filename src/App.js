@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Container from "./components/Container";
+import SearchBar from "./components/SearchBar";
+import "./App.css";
 
 function App() {
   const [data, setData] = useState({});
@@ -109,60 +112,24 @@ function App() {
     }
   }, [data]);
 
-  const currentDate = new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'short' });
+  const currentDate = new Date().toLocaleDateString('en-US', { 
+    day: 'numeric', 
+    month: 'short' 
+  });
 
   return (
     <div className={`app ${background}`}>
-      <div className="search">
-        <input
-          type="text"
-          onChange={(event) => setLocation(event.target.value)}
-          onKeyPress={searchLocation}
-          placeholder="Enter Location"
-        />
-      </div>
-      <div className="container">
-        <div className="top">
-          <div className="location">
-            <p>{data.name || currentLocation}{data.name && ', '}{currentDate}</p>
-          </div>
-          <div className="temp">
-            {data.main && <h1>{data.main.temp.toFixed()}°C</h1>}
-          </div>
-          <div className="description">
-            {data.weather && (
-              <>
-                <p>{data.weather[0].main}</p>
-                <img
-                  src={`/assets/icons/${weatherIcon}.png`}
-                  alt={data.weather[0].main}
-                  className="weather-icon"
-                />
-              </>
-            )}
-          </div>
-        </div>
-        {data.name !== undefined && (
-          <div className="bottom">
-            <div className="feels">
-              {data.main && (
-                <p className="bold">{data.main.feels_like.toFixed()}°C</p>
-              )}
-              <p>Feels Like</p>
-            </div>
-            <div className="humidity">
-              {data.main && <p className="bold">{data.main.humidity} %</p>}
-              <p>Humidity</p>
-            </div>
-            <div className="wind">
-              {data.wind && (
-                <p className="bold">{data.wind.speed.toFixed()} MPH</p>
-              )}
-              <p>Wind speed</p>
-            </div>
-          </div>
-        )}
-      </div>
+      <SearchBar
+        location={location}
+        setLocation={setLocation}
+        searchLocation={searchLocation}
+      />
+      <Container
+        data={data}
+        currentLocation={currentLocation}
+        currentDate={currentDate}
+        weatherIcon={weatherIcon}
+      />
     </div>
   );
 }

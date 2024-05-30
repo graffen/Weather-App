@@ -1,0 +1,74 @@
+.app {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    background-color: rgba(0,0,0,0.4);
+    color: #fff;
+  }
+  
+.app:before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+  
+.app.clear-day:before {
+    background: url('./assets/clear-day.jpg') no-repeat center center/cover;
+}
+  
+.app.clear-night:before {
+    background: url('./assets/clear-night.jpg') no-repeat center center/cover;
+}
+  
+.app.cloudy-day:before {
+    background: url('./assets/cloudy-day.jpg') no-repeat center center/cover;
+}
+  
+.app.cloudy-night:before {
+    background: url('./assets/cloudy-night.jpg') no-repeat center center/cover;
+}
+  
+.app.drizzle-day:before {
+    background: url('./assets/drizzle-day.jpg') no-repeat center center/cover;
+}
+  
+.app.drizzle-night:before {
+    background: url('./assets/drizzle-night.jpg') no-repeat center center/cover;
+}
+  
+.app.rainy-day:before {
+    background: url('./assets/rainy-day.jpg') no-repeat center center/cover;
+}
+  
+.app.rainy-night:before {
+    background: url('./assets/rainy-night.jpg') no-repeat center center/cover;
+}
+  
+.app.snowy-day:before {
+    background: url('./assets/snowy-day.jpg') no-repeat center center/cover;
+}
+  
+.app.snowy-night:before {
+    background: url('./assets/snowy-night.jpg') no-repeat center center/cover;
+}
+  
+.app.thunderstorm-day:before {
+    background: url('./assets/thunderstorm-day.jpg') no-repeat center center/cover;
+}
+  
+.app.thunderstorm-night:before {
+    background: url('./assets/thunderstorm-night.jpg') no-repeat center center/cover;
+}
+  
+.app.default-day:before {
+    background: url('./assets/default-day.jpg') no-repeat center center/cover;
+}
+  
+.app.default-night:before {
+    background: url('./assets/default-night.jpg') no-repeat center center/cover;
+}
+  
