@@ -18,20 +18,22 @@ This is a simple weather application built with React. It allows users to view t
 ## Installation
 
 1. Clone the repository:
-
+```sh
 git clone https://github.com/graffen/Weather-App
-
+```
 
 2. Install dependencies:
-
+```sh
 cd weather-app
+```
+```sh
 npm install
-
+```
 
 3. Start the development server:
-
+```sh
 npm start
-
+```
 
 4. Open the application in your browser at [http://localhost:3000](http://localhost:3000).
 
